@@ -6,7 +6,7 @@
 
 The purpose of this little app is to demonstrate a potential architecture that supports the following use cases:
 
-- [ ] Multiple API versions (see `bounty-hunter` module)
+- [X] Multiple API versions (see `bounty-hunter` module)
 - [ ] Sensible defaults for routing and data access
 - [ ] Sensible defaults for "Data Objects" (i.e. out-of-the-box CRUD)
 - [ ] Multiple access points (i.e. RESTish and GraphQL)
@@ -16,7 +16,7 @@ The purpose of this little app is to demonstrate a potential architecture that s
 
 ## Architecture
 
-The repository layout reflects a standard NUXT application; all the interesting architectural stuff is in the `./server` directory.
+The repository layout reflects a standard [NUXT](https://nuxtjs.org) application; all the interesting architectural stuff is in the `./server` directory.
 
 The `server` is responsible for setting up the `context` and routing API calls to `adapters`.
 
@@ -53,5 +53,3 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
