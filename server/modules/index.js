@@ -13,25 +13,17 @@ function wire(app, context) {
     modules.forEach(m => {
         // Register each route
         m.routes.forEach(route => {
-            switch (route.verb) {
-                case "get":
-                    console.log(`GET /api/:version/${m.name}/${route.path}`)
-                    app.get(`/api/:version/${m.name}/${route.path}`, (req, res) => {
-                        // TODO: Should version be determined here or at the Route level?
-                        const version = req.params.version;
-                        route.method(req, res, version, context);
-                    });
-                    break;
-                case "post":
-                    console.log(`POST /api/:version/${m.name}/${route.path}`)
-                    app.post(`/api/:version/${m.name}/${route.path}`, (req, res) => {
-                        const version = req.params.version;
-                        route.method(req, res, version, context);
-                    });
-                    break;
-                default:
-                    console.error(`Cannot create route. Unknown verb ${route.verb}.`);
-                    break;
+            const path = `/api/:version/${m.name}/${route.path}`;
+            const method = (req, res) => {
+                // TODO: Should version be determined here or at the Route level?
+                route.method(req, res, req.params.version, context);
+            };
+
+            if (['get', 'post', 'put', 'patch', 'delete'].includes(route.verb)) {
+                console.log(route.verb, path);
+                app[route.verb](path, method);
+            } else {
+                throw new Error(`Cannot create route. Unknown verb ${route.verb}.`);
             }
         });
     });
