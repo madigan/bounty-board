@@ -1,5 +1,6 @@
 const modules = [
-    require('./bounty-hunters')
+    require('./bounty-hunters'),
+    require('./accounts')
 ]
 
 /**
@@ -22,7 +23,11 @@ function wire(app, context) {
                     });
                     break;
                 case "post":
-                    app.post(`/api/:version/${m.name}/${route.path}`, route.method);
+                    console.log(`POST /api/:version/${m.name}/${route.path}`)
+                    app.post(`/api/:version/${m.name}/${route.path}`, (req, res) => {
+                        const version = req.params.version;
+                        route.method(req, res, version, context);
+                    });
                     break;
                 default:
                     console.error(`Cannot create route. Unknown verb ${route.verb}.`);
