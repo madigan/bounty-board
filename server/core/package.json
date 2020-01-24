@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "Core objects for the server.",
+  "main": "index.js",
+  "author": "John Lynn <john@otter.tech>",
+  "license": "MIT",
+  "private": true
+}
