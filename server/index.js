@@ -3,6 +3,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+
+const Encryption = require('./services/Encryption');
+
 const app = express()
 app.use(bodyParser.json());
 
@@ -26,6 +29,7 @@ async function start() {
 
   // Create the context object
   const context = {};
+  context.encryption = new Encryption();
   context.knex = require('knex')({
     client: 'sqlite3',
     connection: {

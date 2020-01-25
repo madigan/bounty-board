@@ -13,7 +13,7 @@ function wire(app, context) {
     modules.forEach(m => {
         // Register each route
         m.routes.forEach(route => {
-            const path = `/api/:version/${m.name}/${route.path}`;
+            const path = `/api/:version/${m.name}/${route.path || ""}`;
             const method = (req, res) => {
                 // TODO: Should version be determined here or at the Route level?
                 route.method(req, res, req.params.version, context);

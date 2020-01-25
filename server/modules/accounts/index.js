@@ -8,7 +8,6 @@ module.exports = {
     routes: [
         {
             verb: "get",
-            path: "",
             method: async (req, res, version, context) => { // TODO: Abstract to route class
                 try {
                     const result = await getList({
@@ -29,7 +28,6 @@ module.exports = {
         },
         {
             verb: "post",
-            path: "",
             method: async (req, res, version, context) => {
                 try {
                     await createAccount({
