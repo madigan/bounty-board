@@ -1,3 +1,5 @@
+const uuid = require('uuid/v4');
+
 const Account = require('./Account');
 
 async function createAccount({ name, email, password }, { knex, encryption }) {
@@ -7,7 +9,7 @@ async function createAccount({ name, email, password }, { knex, encryption }) {
 
     const encryptedPassword = encryption.encrypt(password);
     // TODO: Add "DAO" equivalent
-    return knex('accounts').insert({ name, email, password: encryptedPassword });
+    return knex('accounts').insert({ id: uuid(), name, email, password: encryptedPassword });
 }
 
 module.exports = createAccount;

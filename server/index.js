@@ -43,7 +43,7 @@ async function start() {
   fs.writeFileSync('./data/dev.db', "");
   if (! await context.knex.schema.hasTable('accounts')) {
     await context.knex.schema.createTable('accounts', table => {
-      table.increments('id');
+      table.string('id', 64);
       table.string('name', 80);
       table.string('email', 80);
       table.string('password', 256);
