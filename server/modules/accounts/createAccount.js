@@ -1,15 +1,19 @@
 const uuid = require('uuid/v4');
 
-const Account = require('./Account');
+const AccountTable = require('./Account.table');
 
-async function createAccount({ name, email, password }, { knex, encryption }) {
+async function createAccount({ name, email, password }, { encryption }) {
     if (!name) throw new Error("Name is required!"); // TODO: Replace with something like hapi/joi
     if (!email) throw new Error("Email is required!");
     if (!password) throw new Error("Password is required!");
 
     const encryptedPassword = encryption.encrypt(password);
-    // TODO: Add "DAO" equivalent
-    return knex('accounts').insert({ id: uuid(), name, email, password: encryptedPassword });
+    return AccountTable.build({
+        id: uuid(),
+        name,
+        email,
+        password: encryptedPassword
+    }).save();
 }
 
 module.exports = createAccount;

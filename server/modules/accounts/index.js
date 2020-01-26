@@ -1,7 +1,31 @@
+const Sequelize = require('sequelize');
 const Response = require('core/Response');
 
 const getList = require('./getList');
 const createAccount = require('./createAccount');
+
+class AccountModule {
+    constructor({ sequelize }) {
+        /**
+         * @type {Sequelize}
+         */
+        this.sequelize = sequelize;
+
+        this.AccountDB = sequelize.define('account', {
+            name: {
+                type: Sequelize.STRING
+            },
+            email: {
+                type: Sequelize.STRING
+            },
+            password: {
+                type: Sequelize.STRING
+            }
+        })
+    }
+
+
+}
 
 module.exports = {
     name: "accounts",
@@ -10,9 +34,7 @@ module.exports = {
             verb: "get",
             method: async (req, res, version, context) => { // TODO: Abstract to route class
                 try {
-                    const result = await getList({
-                        id: req.params.id
-                    }, context);
+                    const result = await getList({}, context);
 
                     res.json(new Response({
                         data: Array.isArray(result) ? result.map(item => item.toVersion(version)) : result.toVersion(version)
@@ -42,6 +64,17 @@ module.exports = {
                         message: error.message,
                         status: 500
                     });
+                }
+            }
+        },
+        {
+            verb: "get",
+            path: ":id",
+            method: async (req, res, version, context) => {
+                try {
+                    const result = await getById({ id: req.params.id })
+                } catch (error) {
+
                 }
             }
         }

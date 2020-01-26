@@ -5,6 +5,7 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
 const Encryption = require('./services/Encryption');
+const db = require('./services/Db');
 
 const app = express()
 app.use(bodyParser.json());
@@ -28,27 +29,8 @@ async function start() {
   }
 
   // Create the context object
-  const context = {};
+  const context = { db };
   context.encryption = new Encryption();
-  context.knex = require('knex')({
-    client: 'sqlite3',
-    connection: {
-      filename: './data/dev.db'
-    },
-    useNullAsDefault: true
-  });
-
-  // Initialize the database
-  // TODO: Move this to the module layer
-  fs.writeFileSync('./data/dev.db', "");
-  if (! await context.knex.schema.hasTable('accounts')) {
-    await context.knex.schema.createTable('accounts', table => {
-      table.string('id', 64);
-      table.string('name', 80);
-      table.string('email', 80);
-      table.string('password', 256);
-    });
-  }
 
   // Wire the API layer
   const wire = require('./modules');
