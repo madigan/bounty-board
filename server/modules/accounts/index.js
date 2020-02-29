@@ -27,56 +27,16 @@ class AccountModule {
 
 }
 
-module.exports = {
-    name: "accounts",
-    routes: [
-        {
-            verb: "get",
-            method: async (req, res, version, context) => { // TODO: Abstract to route class
-                try {
-                    const result = await getList({}, context);
-
-                    res.json(new Response({
-                        data: Array.isArray(result) ? result.map(item => item.toVersion(version)) : result.toVersion(version)
-                    }));
-                } catch (error) {
-                    console.error(error);
-                    res.json({
-                        message: error.message,
-                        status: 500
-                    });
-                }
-            }
-        },
-        {
-            verb: "post",
-            method: async (req, res, version, context) => {
-                try {
-                    await createAccount({
-                        name: req.body.name,
-                        email: req.body.email,
-                        password: req.body.password
-                    }, context);
-                    res.json(new Response({}));
-                } catch (error) {
-                    console.error(error);
-                    res.json({
-                        message: error.message,
-                        status: 500
-                    });
-                }
-            }
-        },
-        {
-            verb: "get",
-            path: ":id",
-            method: async (req, res, version, context) => {
-                try {
-                    const result = await getById({ id: req.params.id })
-                } catch (error) {
-
-                }
-            }
+const manifest = {
+    info: {
+        name: 'Account'
+    },
+    layers: {                   // TODO: Find a better name
+        router: {               // TODO: Create RouterConfig class / interface
+            useDefaults: true,  // TODO: Add exceptions
         }
-    ]
+    }
+}
+module.exports = {
+
 }

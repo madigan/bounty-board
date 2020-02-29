@@ -5,7 +5,7 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
 const Encryption = require('./services/Encryption');
-const db = require('./services/Db');
+const db = require('./services/Database');
 
 const app = express()
 app.use(bodyParser.json());

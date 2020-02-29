@@ -13,9 +13,11 @@
     "start": "cross-env NODE_ENV=production node -r dotenv/config server/index.js",
     "generate": "nuxt generate",
     "test": "jest",
+    "test:w": "jest --watch",
     "migrate": "node -r dotenv/config -e 'require(`./server/services/migrate.js`).up()'"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "body-parser": "^1.19.0",
@@ -26,6 +28,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "knex": "^0.20.8",
+    "lodash": "^4.17.15",
+    "lodash-inflection": "^1.5.0",
     "nuxt": "^2.0.0",
     "sequelize": "^5.21.3",
     "sqlite3": "^4.1.1",

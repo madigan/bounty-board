@@ -1,5 +1,5 @@
 const Umzug = require('umzug');
-const sequelize = require('./Db');
+const sequelize = require('./Database');
 
 const migrator = new Umzug({
     storage: 'sequelize',
